@@ -1658,8 +1658,10 @@ class StyleGuide(object):
         return False.  Else, if 'options.ignore' contains a prefix of
         the error code, return True.
         """
-        return (code.startswith(self.options.ignore) and
-                not code.startswith(self.options.select))
+        if self.options.select:
+            return not code.startswith(self.options.select)
+
+        return code.startswith(self.options.ignore)
 
     def get_checks(self, argument_name):
         """
